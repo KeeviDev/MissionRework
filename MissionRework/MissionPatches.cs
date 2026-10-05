@@ -22,6 +22,16 @@ namespace MissionRework
         public static Dictionary<int, List<Good>> portLists = new Dictionary<int, List<Good>>();
         private static IslandMarket currentMarket;
 
+        private static List<Good> GetMissionGoods(int portIndex)
+        {
+            if (!portLists.TryGetValue(portIndex, out List<Good> goods))
+            {
+                goods = new List<Good>();
+                portLists.Add(portIndex, goods);
+            }
+            return goods;
+        }
+
         private static int CountMissionGoods(List<Good> goods, Mission mission)
         {
             int count = 0;
@@ -67,32 +77,15 @@ namespace MissionRework
         private static class MissionGoodRegistrationPatch
         {
             [HarmonyPostfix]
-            [HarmonyPatch("Awake")]
-            public static void Register(IslandMarketWarehouseArea __instance, IslandMarket ___market)
-            {
-                currentPortIndex = ___market.GetPortIndex();
-                if (!portLists.ContainsKey(currentPortIndex))
-                {
-                    portLists.Add(currentPortIndex, new List<Good>());
-
-                }
-            }
-
-            [HarmonyPostfix]
             [HarmonyPatch("OnTriggerEnter")]
             public static void OnTriggerEnterPatch(IslandMarketWarehouseArea __instance, Collider other, IslandMarket ___market)
             {
                 currentPortIndex = ___market.GetPortIndex();
                 currentMarket = ___market;
 
-                if (!portLists.ContainsKey(currentPortIndex))
-                {
-                    portLists.Add(currentPortIndex, new List<Good>());
-                }
-
                 Good component = other.GetComponent<Good>();
 
-                List<Good> missionGoodsInArea = portLists[currentPortIndex];
+                List<Good> missionGoodsInArea = GetMissionGoods(currentPortIndex);
 
                 if ((bool)component && !missionGoodsInArea.Contains(component) && component.GetMissionIndex() != -1)
                 {
@@ -108,7 +101,7 @@ namespace MissionRework
                 currentPortIndex = ___market.GetPortIndex();
                 currentMarket = ___market;
 
-                List<Good> missionGoodsInArea = portLists[currentPortIndex];
+                List<Good> missionGoodsInArea = GetMissionGoods(currentPortIndex);
 
                 Good component = other.GetComponent<Good>();
                 if ((bool)component && missionGoodsInArea.Contains(component))
@@ -172,9 +165,9 @@ namespace MissionRework
             [HarmonyPatch("ClickButton")]
             public static bool ClickButton(MissionDetailsUI __instance, ref bool ___clickable, bool ___mapZoomedIn, ref Mission ___currentMission, ref GameObject ___UI, ref TextMesh ___buttonText)
             {
-                int missionPortIndex = ___currentMission.destinationPort.portIndex;
-                List<Good> missionGoodsInArea = portLists[missionPortIndex];
                 if (GPMissionTypeButton.missionType == MissionType.Available) return true;
+                int missionPortIndex = ___currentMission.destinationPort.portIndex;
+                List<Good> missionGoodsInArea = GetMissionGoods(missionPortIndex);
 
                 if (!___mapZoomedIn && ___currentMission.missionIndex != -1)
                 {
@@ -247,7 +240,7 @@ namespace MissionRework
             private static void UpdateTextsPatch(ref bool ___clickable, ref TextMesh ___buttonText, Mission ___currentMission, ref TextMesh ___amount)
             {
                 int missionPortIndex = ___currentMission.destinationPort.portIndex;
-                List<Good> missionGoodsInArea = portLists[currentPortIndex];
+                List<Good> missionGoodsInArea = GetMissionGoods(currentPortIndex);
 
 
                 if (___currentMission.missionIndex != -1 && (MissionListUI.instance.GetPrivateField<PortDude>("currentPortDude") != null))
