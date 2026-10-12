@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MissionRework</RootNamespace>
     <AssemblyName>MissionRework</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <SailwindDir Condition=" '$(SailwindDir)' == '' ">E:\Games\Steam\steamapps\common\Sailwind</SailwindDir>
+    <SailwindManaged>$(SailwindDir)\Sailwind_Data\Managed</SailwindManaged>
+    <SailwindBepInEx Condition=" '$(SailwindBepInEx)' == '' ">$(LOCALAPPDATA)\SailwindModSynchronizer\packs\keevi-pack-2\instance\BepInEx</SailwindBepInEx>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,60 +34,48 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HarmonyX.2.4.2\lib\net45\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Sailwind\Sailwind_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(SailwindManaged)\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Sailwind\Sailwind_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="BepInEx, Version=5.4.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BepInEx.BaseLib.5.4.11\lib\net35\BepInEx.dll</HintPath>
+      <HintPath>$(SailwindManaged)\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Mono.Cecil, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.dll</HintPath>
+    <Reference Include="SailwindModdingHelper">
+      <HintPath>$(SailwindBepInEx)\plugins\SailwindModdingHelper\SailwindModdingHelper.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine">
+      <HintPath>$(SailwindManaged)\UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoMod.RuntimeDetour, Version=21.4.21.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoMod.RuntimeDetour.21.4.21.3\lib\net40\MonoMod.RuntimeDetour.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoMod.Utils, Version=21.4.21.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoMod.Utils.21.4.21.3\lib\net40\MonoMod.Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="SailwindModdingHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Desktop\Sailwind\Mods\SailwindModdingHelper\SailwindModdingHelper.dll</HintPath>
-    </Reference>
-    <Reference Include="System">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Sailwind\Sailwind_Data\Managed\System.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UnityEngine.Core.2018.1.0\lib\net35\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UnityEngine.Core.2018.1.0\lib\net35\UnityEngine.CoreModule.dll</HintPath>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(SailwindManaged)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sailwind\Sailwind_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>$(SailwindManaged)\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Desktop\Sailwind\Sailwind_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(SailwindManaged)\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UnityEngine.UI.2018.1.0\lib\net35\UnityEngine.UI.dll</HintPath>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(SailwindManaged)\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BepInEx.BaseLib">
+      <Version>5.4.21</Version>
+    </PackageReference>
+    <PackageReference Include="BepInEx.Core">
+      <Version>5.4.21</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GPMissionTypeButton.cs" />
@@ -95,24 +84,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="manifest.json" />
-    <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>mkdir "C:\Program Files (x86)\Steam\steamapps\common\Sailwind\BepInEx\plugins\MissionRework"
-xcopy /y "MissionRework.dll" "C:\Program Files (x86)\Steam\steamapps\common\Sailwind\BepInEx\plugins\MissionRework"
-cd "..\"
-xcopy /y "manifest.json" "C:\Program Files (x86)\Steam\steamapps\common\Sailwind\BepInEx\plugins\MissionRework"
-xcopy /y "README.md" "C:\Program Files (x86)\Steam\steamapps\common\Sailwind\BepInEx\plugins\MissionRework"</PostBuildEvent>
-  </PropertyGroup>
-  <Import Project="..\packages\BepInEx.Core.5.4.11\build\BepInEx.Core.targets" Condition="Exists('..\packages\BepInEx.Core.5.4.11\build\BepInEx.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\BepInEx.Core.5.4.11\build\BepInEx.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\BepInEx.Core.5.4.11\build\BepInEx.Core.targets'))" />
+  <Target Name="CheckSailwindDir" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(SailwindManaged)\Assembly-CSharp.dll')" Text="Sailwind assemblies not found in '$(SailwindManaged)'. Set SailwindDir to the game folder." />
+    <Error Condition="!Exists('$(SailwindBepInEx)\plugins\SailwindModdingHelper\SailwindModdingHelper.dll')" Text="SailwindModdingHelper not found in '$(SailwindBepInEx)\plugins'. Set SailwindBepInEx to a BepInEx folder that has it." />
   </Target>
 </Project>
