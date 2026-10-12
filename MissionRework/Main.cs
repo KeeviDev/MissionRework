@@ -13,7 +13,7 @@ namespace MissionRework
     {
         public const string GUID = "com.nandbrew.missionrework";
         public const string NAME = "Mission Rework";
-        public const string VERSION = "1.0.2";
+        public const string VERSION = "1.0.3";
 
         internal static Main instance;
         internal static ManualLogSource logSource;
